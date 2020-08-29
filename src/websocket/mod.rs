@@ -120,7 +120,8 @@ fn parse_message(msg: WSMessage) -> BitMEXWsMessage {
             "pong" => BitMEXWsMessage::Pong,
             others => match from_str(others) {
                 Ok(r) => r,
-                Err(_) => unreachable!("Cannot deserialize message from BitMEX: '{}'", others),
+                // Err(_) => unreachable!("Cannot deserialize message from BitMEX: '{}'", others),
+                Err(_) => BitMEXWsMessage::Pong,
             },
         },
         WSMessage::Close(_) => throw!(BitMEXError::WebsocketClosed),
